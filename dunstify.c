@@ -206,7 +206,7 @@ void add_action(NotifyNotification *n, char *str)
     char *label = strchr(str, ',');
 
     if (!label || *(label+1) == '\0') {
-        g_printerr("Malformed action. Excpected \"action,label\", got \"%s\"", str);
+        g_printerr("Malformed action. Expected \"action,label\", got \"%s\"", str);
         return;
     }
 
@@ -296,12 +296,12 @@ int main(int argc, char *argv[])
         put_id(n, replace_id);
     }
 
-    GMainLoop *l = NULL;
+    //GMainLoop *l = NULL;
 
-    if (block || action_strs) {
-        l = g_main_loop_new(NULL, false);
-        g_signal_connect(n, "closed", G_CALLBACK(closed), NULL);
-    }
+    //if (block || action_strs) {
+    //    l = g_main_loop_new(NULL, false);
+    //    g_signal_connect(n, "closed", G_CALLBACK(closed), NULL);
+    //}
 
     if (action_strs)
         for (int i = 0; action_strs[i]; i++) {
@@ -323,8 +323,8 @@ int main(int argc, char *argv[])
     if (printid)
         g_print("%d\n", get_id(n));
 
-    if (block || action_strs)
-        g_main_loop_run(l);
+    //if (block || action_strs)
+    //    g_main_loop_run(l);
 
     g_object_unref(G_OBJECT (n));
 
