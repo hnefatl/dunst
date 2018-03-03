@@ -51,7 +51,7 @@ TEST_SRC := $(sort $(shell find test/ -name '*.c'))
 TEST_OBJ := $(TEST_SRC:.c=.o)
 
 .PHONY: all debug
-all: doc dunst service
+all: doc dunst dunstify service
 
 debug: CFLAGS   += ${CFLAGS_DEBUG}
 debug: LDFLAGS  += ${LDFLAGS_DEBUG}
@@ -126,11 +126,14 @@ clean-tests:
         install-service install-service-dbus install-service-systemd \
         uninstall \
         uninstall-service uninstall-service-dbus uninstall-service-systemd
-install: install-dunst install-doc install-service
+install: install-dunst install-dunstify install-doc install-service
 
 install-dunst: dunst doc
 	install -Dm755 dunst ${DESTDIR}${PREFIX}/bin/dunst
 	install -Dm644 docs/dunst.1 ${DESTDIR}${MANPREFIX}/man1/dunst.1
+
+install-dunstify: dunstify
+	install -Dm755 dunstify ${DESTDIR}${PREFIX}/bin/dunstify
 
 install-doc:
 	install -Dm644 dunstrc ${DESTDIR}${PREFIX}/share/dunst/dunstrc
