@@ -29,16 +29,12 @@ pkg_config_packs := dbus-1 \
                     x11 \
                     xinerama \
                     "xrandr >= 1.5" \
-                    xscrnsaver
+                    xscrnsaver \
+                    libnotify
 
 # check if we need libxdg-basedir
 ifeq (,$(findstring STATIC_CONFIG,$(CFLAGS)))
 	pkg_config_packs += libxdg-basedir
 else
 $(warning STATIC_CONFIG is deprecated behavior. It will get removed in future releases)
-endif
-
-# dunstify also needs libnotify
-ifneq (,$(findstring dunstify,${MAKECMDGOALS}))
-	pkg_config_packs += libnotify
 endif
